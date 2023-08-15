@@ -21,8 +21,12 @@ def write_outFlow(g, p, u, v, w, filename):
     filename: path to the vtk file
     """
 
-    #default 2D geometry
+    #default 1D geometry
+    Nx = g.Nx
+    Ny = 1
     Nz = 1
+    if g.dim > 1:
+        Ny = g.Ny
     if g.dim > 2:
         Nz = g.Nz
 
@@ -32,9 +36,9 @@ def write_outFlow(g, p, u, v, w, filename):
         outfile.write('ASCII\n')
         outfile.write('DATASET STRUCTURED_POINTS\n')
         outfile.write('DIMENSIONS ')
-        outfile.write('{}'.format(g.Nx))
+        outfile.write('{}'.format(Nx))
         outfile.write(' ')
-        outfile.write('{}'.format(g.Ny))
+        outfile.write('{}'.format(Ny))
         outfile.write(' ')
         outfile.write('{}\n'.format(Nz))
         outfile.write('ASPECT_RATIO 1 1 1\n')
@@ -44,18 +48,18 @@ def write_outFlow(g, p, u, v, w, filename):
         outfile.write('SCALARS pressure float 1\n')
         outfile.write('LOOKUP_TABLE default\n')
         for k in np.arange(Nz):
-            for j in np.arange(g.Ny):
-                for i in np.arange(g.Nx):
-                    outfile.write(f'{float(p[i,j,k]):.5f}\n')
+            for j in np.arange(Ny):
+                for i in np.arange(Nx):
+                    outfile.write(f'{float(p[i,j,k]):.5e}\n')
         outfile.write('VECTORS velocity float\n')
         for k in np.arange(Nz):
-            for j in np.arange(g.Ny):
-                for i in np.arange(g.Nx):
-                    outfile.write(f'{float(u[i,j,k]):.7f}')
+            for j in np.arange(Ny):
+                for i in np.arange(Nx):
+                    outfile.write(f'{float(u[i,j,k]):.5e}')
                     outfile.write(' ')
-                    outfile.write(f'{float(v[i,j,k]):.7f}')
+                    outfile.write(f'{float(v[i,j,k]):.5e}')
                     outfile.write(' ')
-                    outfile.write(f'{float(w[i,j,k]):.7f}\n')
+                    outfile.write(f'{float(w[i,j,k]):.5e}\n')
 
 def write_outFile(g, c_dict, filename):
     
@@ -69,8 +73,12 @@ def write_outFile(g, c_dict, filename):
     filename: path to the vtk file
     """
 
-    #default 2D geometry
+    #default 1D geometry
+    Nx = g.Nx
+    Ny = 1
     Nz = 1
+    if g.dim > 1:
+        Ny = g.Ny
     if g.dim > 2:
         Nz = g.Nz
         
@@ -80,9 +88,9 @@ def write_outFile(g, c_dict, filename):
         outfile.write('ASCII\n')
         outfile.write('DATASET STRUCTURED_POINTS\n')
         outfile.write('DIMENSIONS ')
-        outfile.write('{}'.format(g.Nx))
+        outfile.write('{}'.format(Nx))
         outfile.write(' ')
-        outfile.write('{}'.format(g.Ny))
+        outfile.write('{}'.format(Ny))
         outfile.write(' ')
         outfile.write('{}\n'.format(Nz))
         outfile.write('ASPECT_RATIO 1 1 1\n')
@@ -96,8 +104,8 @@ def write_outFile(g, c_dict, filename):
             outfile.write(' float 1\n')
             outfile.write('LOOKUP_TABLE default\n')
             for k in np.arange(Nz):
-                for j in np.arange(g.Ny):
-                    for i in np.arange(g.Nx):
+                for j in np.arange(Ny):
+                    for i in np.arange(Nx):
                         outfile.write(f'{float(c[i,j,0]):.5e}\n')
                 
 

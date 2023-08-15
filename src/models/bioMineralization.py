@@ -140,14 +140,14 @@ def solveRT(g, d, bndf, bndt, s, h):
     # Initialize advection matrices
     q = readf.read_fluxfield(g, fluxfile)
 
-    U1, U1_bnd = ade.discretize_advection(g, bndf, q, c1_bnd)
-    U2, U2_bnd = ade.discretize_advection(g, bndf, q, c2_bnd)
-    U3, U3_bnd = ade.discretize_advection(g, bndf, q, c3_bnd)
-    U4, U4_bnd = ade.discretize_advection(g, bndf, q, c4_bnd)
-    U5, U5_bnd = ade.discretize_advection(g, bndf, q, c5_bnd)
-    U6, U6_bnd = ade.discretize_advection(g, bndf, q, c6_bnd)
-    Ub, Ub_bnd = ade.discretize_advection(g, bndf, q, cB_bnd)
-    Un, Un_bnd = ade.discretize_advection(g, bndf, q, cN_bnd)
+    U1, U1_bnd = ade.discretize_advection(g, bndt, q, c1_bnd)
+    U2, U2_bnd = ade.discretize_advection(g, bndt, q, c2_bnd)
+    U3, U3_bnd = ade.discretize_advection(g, bndt, q, c3_bnd)
+    U4, U4_bnd = ade.discretize_advection(g, bndt, q, c4_bnd)
+    U5, U5_bnd = ade.discretize_advection(g, bndt, q, c5_bnd)
+    U6, U6_bnd = ade.discretize_advection(g, bndt, q, c6_bnd)
+    Ub, Ub_bnd = ade.discretize_advection(g, bndt, q, cB_bnd)
+    Un, Un_bnd = ade.discretize_advection(g, bndt, q, cN_bnd)
     
     # Initialize monitors        
     l_time = []
@@ -224,14 +224,14 @@ def solveRT(g, d, bndf, bndt, s, h):
             d["porosity field"] = phi
             p, u, q = Stokes.SimpleAlgorithm(g, d, bnd, s, p, u)
 
-            U1, U1_bnd = ade.discretize_advection(g, bndf, q, c1_bnd)
-            U2, U2_bnd = ade.discretize_advection(g, bndf, q, c2_bnd)
-            U3, U3_bnd = ade.discretize_advection(g, bndf, q, c3_bnd)
-            U4, U4_bnd = ade.discretize_advection(g, bndf, q, c4_bnd)
-            U5, U5_bnd = ade.discretize_advection(g, bndf, q, c5_bnd)
-            U6, U6_bnd = ade.discretize_advection(g, bndf, q, c6_bnd)
-            Ub, Ub_bnd = ade.discretize_advection(g, bndf, q, cB_bnd)
-            Un, Un_bnd = ade.discretize_advection(g, bndf, q, cN_bnd)
+            U1, U1_bnd = ade.discretize_advection(g, bndt, q, c1_bnd)
+            U2, U2_bnd = ade.discretize_advection(g, bndt, q, c2_bnd)
+            U3, U3_bnd = ade.discretize_advection(g, bndt, q, c3_bnd)
+            U4, U4_bnd = ade.discretize_advection(g, bndt, q, c4_bnd)
+            U5, U5_bnd = ade.discretize_advection(g, bndt, q, c5_bnd)
+            U6, U6_bnd = ade.discretize_advection(g, bndt, q, c6_bnd)
+            Ub, Ub_bnd = ade.discretize_advection(g, bndt, q, cB_bnd)
+            Un, Un_bnd = ade.discretize_advection(g, bndt, q, cN_bnd)
 
             MineralVolumeOld = mineralVolume
 

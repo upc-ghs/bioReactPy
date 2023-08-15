@@ -318,24 +318,29 @@ class CartGrid(TensorGrid):
         dims = np.asarray(nx).shape
         assert dims == np.asarray(physdims).shape
         name = "CartGrid"
-        self.Nx = nx[0]
-        self.Ny = nx[1]
-        self.dx = physdims[0]/nx[0]
 
         # Create point distribution, and then leave construction to
         # TensorGrid constructor
         if dims is ():  # dirty trick
             nodes_x = np.linspace(0, physdims, nx + 1)
+            self.Nx = nx
+            self.dx = physdims/nx
             super(self.__class__, self).__init__(nodes_x, name=name)
         elif dims[0] == 2:
             nodes_x = np.linspace(0, physdims[0], nx[0] + 1)
             nodes_y = np.linspace(0, physdims[1], nx[1] + 1)
+            self.Nx = nx[0]
+            self.Ny = nx[1]
+            self.dx = physdims[0]/nx[0]
             super(self.__class__, self).__init__(nodes_x, nodes_y, name=name)
         elif dims[0] == 3:
             nodes_x = np.linspace(0, physdims[0], nx[0] + 1)
             nodes_y = np.linspace(0, physdims[1], nx[1] + 1)
             nodes_z = np.linspace(0, physdims[2], nx[2] + 1)
+            self.Nx = nx[0]
+            self.Ny = nx[1]
             self.Nz = nx[2]
+            self.dx = physdims[0]/nx[0]
             super(self.__class__, self).__init__(nodes_x, nodes_y, nodes_z, name=name)
         else:
             raise ValueError(

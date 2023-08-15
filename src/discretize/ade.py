@@ -140,7 +140,7 @@ def discretize_advection(g, bnd, q, c_bound):
     # If boundary conditions are imposed remove the faces from this
     # procedure. The outflow boundary is considered of dirichlet type in
     # this example but it doesn't matter because of the upwind scheme
-    is_dir = np.logical_or(bnd.is_vel, bnd.is_pres)
+    is_dir = bnd.is_dir#np.logical_or(bnd.is_vel, bnd.is_pres)
     bc_dir = np.where(is_dir)[0]
     bc_neu = np.setdiff1d(bc_neu, bc_dir, assume_unique=True)
     bc_dir = mask[bc_dir]
@@ -167,8 +167,7 @@ def discretize_advection(g, bnd, q, c_bound):
 
     # Impose the boundary conditions
     bc_val_dir = np.zeros(g.num_faces)
-    if np.any(bnd.is_vel):
-        is_dir = np.where(bnd.is_vel)[0]
+    if np.any(bnd.is_dir):
         bc_val_dir[is_dir] = c_bound[is_dir]
 
     # We assume that for Neumann boundary condition a positive 'bc_val'

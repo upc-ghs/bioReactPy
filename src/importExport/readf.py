@@ -28,6 +28,7 @@ def read_flowfield(g, filename):
 
     a1=[]
     a2=[]
+    a3=[]
 
     with open(filename) as fp:
         for _ in range(10):
@@ -41,9 +42,13 @@ def read_flowfield(g, filename):
             data = line.split()
             a1.append(float(data[0]))
             a2.append(float(data[1]))
+            a3.append(float(data[2]))
 
     u[0]=np.array(a1)
-    u[1]=np.array(a2)   
+    if g.dim > 1:
+        u[1]=np.array(a2)
+    if g.dim > 2:
+        u[2]=np.array(a3)
 
     return p, u
 

@@ -152,10 +152,9 @@ bc_flow = BoundaryCondition(
     )
 
 # BC for transport
-neu_faces = np.concatenate((right_faces, wall_faces))
-bnd_cond_faces = ['dir'] * left_faces.size + ['neu'] * neu_faces.size
+bnd_cond_faces = ['dir'] * left_faces.size
 bc_transport = BoundaryConditionTransport(
-    g, bnd_faces, bnd_cond_faces
+    g, left_faces, bnd_cond_faces
     )
 
 #Input data

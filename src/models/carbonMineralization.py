@@ -114,10 +114,10 @@ def solveRT(g, d, bndf, bndt, s, h):
     # Initialize advection matrices
     q = readf.read_fluxfield(g, fluxfile)
    
-    U1, U1_bound = ade.discretize_advection(g, bndf, q, c1_bound)
-    U2, U2_bound = ade.discretize_advection(g, bndf, q, c2_bound)
-    U3, U3_bound = ade.discretize_advection(g, bndf, q, c3_bound)
-    U4, U4_bound = ade.discretize_advection(g, bndf, q, c4_bound)
+    U1, U1_bound = ade.discretize_advection(g, bndt, q, c1_bound)
+    U2, U2_bound = ade.discretize_advection(g, bndt, q, c2_bound)
+    U3, U3_bound = ade.discretize_advection(g, bndt, q, c3_bound)
+    U4, U4_bound = ade.discretize_advection(g, bndt, q, c4_bound)
    
     # Initialize monitors        
     l_time = []
@@ -181,10 +181,10 @@ def solveRT(g, d, bndf, bndt, s, h):
             d["porosity field"] = phi
             p, u, q = flowSolver.SimpleAlgorithm(g, d, bnd, s, p, u)
 
-            U1, U1_bound = ade.discretize_advection(g, bndf, q, c1_bound)
-            U2, U2_bound = ade.discretize_advection(g, bndf, q, c2_bound)
-            U3, U3_bound = ade.discretize_advection(g, bndf, q, c3_bound)
-            U4, U4_bound = ade.discretize_advection(g, bndf, q, c4_bound)
+            U1, U1_bound = ade.discretize_advection(g, bndt, q, c1_bound)
+            U2, U2_bound = ade.discretize_advection(g, bndt, q, c2_bound)
+            U3, U3_bound = ade.discretize_advection(g, bndt, q, c3_bound)
+            U4, U4_bound = ade.discretize_advection(g, bndt, q, c4_bound)
 
             MineralVolumeOld = mineralVolume
             

@@ -186,29 +186,42 @@ def SimpleAlgorithm(g, d, bnd, s, p0, u0, residuals = False):
 
     # Calculate micro-continuum permeability
     if FlowModel == 'microcontinuum':
-        initial_permeability = d["initial permeability"]
+        k0 = d["initial permeability"]
         phi = d["porosity field"]
-        num = np.power(np.ones(g.num_cells) - phi, 2)
-        den = np.power(phi, 3)
-        inv_perm = 1 / initial_permeability * np.divide(num, den)
+        if d["kozeny-carman"] == 'molins':
+            num = np.power(np.ones(g.num_cells) - phi, 2)
+            den = np.power(phi, 3)
+            inv_perm = 1 / k0 * np.divide(num, den)
+        elif d["kozeny-carman"] == 'xie':
+            phi0 = d["initial porosity field"]
+            kc1 = np.power(np.divide(phi, phi0), 2)
+            kc2 = np.power(np.divide(1-phi0, 1-phi), 3) 
+            term = kc1 * kc2
+            k = k0 * term
+            inv_perm = np.divide(1, k)# * np.divide(num, den)
+
         visc = mu/phi
 
     #Discretize momentum equations
     Au, Au_bound = stokes.discretize_momentum(
         g, bnd, visc, u_bound[0], 'x', FlowModel
         )
-    Av, Av_bound = stokes.discretize_momentum(
-        g, bnd, visc, u_bound[1], 'y', FlowModel
-        )
-
     if FlowModel == 'microcontinuum':
         Au += sps.diags(mu * inv_perm * g.cell_volumes)
-        Av += sps.diags(mu * inv_perm * g.cell_volumes)
-
     acu = Au.diagonal()
-    acv = Av.diagonal()
+    ac = np.array([acu])
+    
+    if g.dim > 1:
+        Av, Av_bound = stokes.discretize_momentum(
+            g, bnd, visc, u_bound[1], 'y', FlowModel
+            )
 
-    ac = np.vstack((acu, acv))
+        if FlowModel == 'microcontinuum':
+            Av += sps.diags(mu * inv_perm * g.cell_volumes)
+
+        acv = Av.diagonal()
+
+        ac = np.vstack((acu, acv))
 
     if g.dim > 2:
         Aw, Aw_bound = stokes.discretize_momentum(
@@ -257,12 +270,13 @@ def SimpleAlgorithm(g, d, bnd, s, p0, u0, residuals = False):
         if residuals:
             print('momentum x', iter_u, res_u)
 
-        b = Av_bound -  gradp[1]
-        u[1], res_v, iter_v = sor_solver(
-            Av, b, omega_u, u[1], tol_u, max_iter_u
-            )
-        if residuals:
-            print('momentum y', iter_v, res_v)
+        if g.dim > 1:
+            b = Av_bound -  gradp[1]
+            u[1], res_v, iter_v = sor_solver(
+                Av, b, omega_u, u[1], tol_u, max_iter_u
+                )
+            if residuals:
+                print('momentum y', iter_v, res_v)
 
         if g.dim > 2:
             b = Aw_bound -  gradp[2]
@@ -278,8 +292,10 @@ def SimpleAlgorithm(g, d, bnd, s, p0, u0, residuals = False):
         # Step 3 - Check mass conservation
         if g.dim == 2:
             q = get_discharge2D(g, u[0])
-        else:
+        elif g.dim == 3:
             q = get_discharge3D(g, u[2])
+        else:
+            q = u[0]
             
         qm = np.average(q)
         q_in = q[0]

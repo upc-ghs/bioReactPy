@@ -38,9 +38,8 @@ from importExport import printf
 import time
 
 # Output files
-filename = 'outputFiles/plots/molinsBenchmarkN8.vtk'
-workbook = xlsxwriter.Workbook('outputFiles/residuals/molinsBenchmarkN8.xlsx')
-qfworkbook = xlsxwriter.Workbook('outputFiles/fluxes/molinsBenchmarkN8.xls')
+filename = 'molinsBenchmarkN8.vtk'
+qfworkbook = xlsxwriter.Workbook('molinsBenchmarkN8.xls')
 
 FlowModel = 'microcontinuum'
 FlowSolver = 'Simple'
@@ -108,6 +107,7 @@ dataFlow = {
     "fluid viscosity": mu,
     "boundary velocity": u_bound,
     "boundary pressure": p_bound,
+    "kozeny-carman": 'molins',
     }
 
 # Initialize porosity field (in a microcontinuum framework)
@@ -167,7 +167,7 @@ print('exact discharge', q_ex)
 
 qmax = np.amax(q)
 print('max velocity', qmax)
-
+"""
 # Postprocess and write monitor results
 t_arr = np.array(outer)
 u_arr = np.array(res_u)
@@ -175,15 +175,15 @@ p_arr = np.array(res_div)
 q_arr = np.array(res_q)
 
 worksheet = workbook.add_worksheet()
-qfworksheet = qfworkbook.add_worksheet()
-
-row = 0
 
 array = np.array([t_arr, u_arr, p_arr, q_arr])
 for col, data in enumerate(array):
     worksheet.write_column(row, col, data)
 workbook.close()
+"""
 
+row = 0
+qfworksheet = qfworkbook.add_worksheet()
 array = np.array([np.arange(g.num_faces), q])
 for col, data in enumerate(array):
     qfworksheet.write_column(row, col, data)

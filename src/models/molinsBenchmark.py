@@ -93,6 +93,8 @@ def solveRT(g, d, bndf, bndt, s):
     l_vol: list of mineral volume
     """
 
+    d["kozeny-carman"] = 'molins'
+
     # Retrieve Input data
     rho = d["fluid density"]
     mu = d["fluid viscosity"]
@@ -128,7 +130,7 @@ def solveRT(g, d, bndf, bndt, s):
        
     # Initialize advection matrices
     q = readf.read_fluxfield(g, fluxfile)
-    U, U_bound = ade.discretize_advection(g, bndf, q, c_bound)
+    U, U_bound = ade.discretize_advection(g, bndt, q, c_bound)
    
     # Initialize monitors        
     l_time = []
@@ -159,7 +161,7 @@ def solveRT(g, d, bndf, bndt, s):
             print('-------------------------------------------------- Update flow --------------------------------------------------')
             d["porosity field"] = phi
             p, u, q = flowSolver.SimpleAlgorithm(g, d, bndf, s, p, u)
-            U, U_bound = ade.discretize_advection(g, bndf, q, c_bound)
+            U, U_bound = ade.discretize_advection(g, bndt, q, c_bound)
             MineralVolumeOld = mineralVolume
             
         psi = 4 * phi * phi_s

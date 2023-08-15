@@ -40,14 +40,14 @@ import time
 import math
             
 # Input Files
-flowfile = 'outputFiles/plots/molinsBenchmarkN8.vtk'
-fluxfile = 'outputFiles/fluxes/molinsBenchmarkN8.xls'
+flowfile = 'molinsBenchmarkN8.vtk'
+fluxfile = 'molinsBenchmarkN8.xls'
 
 # Output files
-outflowfile = 'outputFiles/plots/part2benchmarkN8.vtk'
-cfile = 'outputFiles/concentrations/part2benchmarkN8.vtk'
-workbook = xlsxwriter.Workbook('outputFiles/monitors/part2benchmarkN8.xlsx')
-evolutionFile = 'outputFiles/plots/part2benchmarkN8Time{0}.vtk'
+outflowfile = 'part2benchmarkN8flow.vtk'
+cfile = 'part2benchmarkN8c.vtk'
+workbook = xlsxwriter.Workbook('part2benchmarkN8.xls')
+evolutionFile = 'part2benchmarkN8Time{0}.vtk'
 
 FlowModel = 'microcontinuum'
 FlowSolver = 'Simple'
@@ -93,10 +93,9 @@ bc_flow = BoundaryCondition(
     )
 
 # BC for transport
-neu_faces = np.concatenate((right_faces, wall_faces))
-bnd_cond_faces = ['dir'] * left_faces.size + ['neu'] * neu_faces.size
+bnd_cond_faces = ['dir'] * left_faces.size
 bc_transport = BoundaryConditionTransport(
-    g, bnd_faces, bnd_cond_faces
+    g, left_faces, bnd_cond_faces
     )
 
 # Input data
@@ -234,6 +233,7 @@ for col, data in enumerate(array):
     worksheet.write_column(row, col, data)
 workbook.close()
 
+"""
 p = p.reshape((Nx, Ny, 1), order = 'F')
 vx = u[0].reshape((Nx, Ny, 1), order = 'F')
 vy = u[1].reshape((Nx, Ny, 1), order = 'F')
@@ -244,4 +244,4 @@ c_dict = {
     "c": c.reshape((g.Nx, g.Ny, 1), order = 'F'),
     }
 printf.write_outFile(g, c_dict, cfile)
-
+"""

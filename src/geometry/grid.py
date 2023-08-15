@@ -228,7 +228,7 @@ class Grid(object):
         self.face_centers = self.nodes[:, fn]
 
         self.face_normals = np.tile(
-            map_geometry.compute_tangent(self.nodes), (n, 1)
+            gridutils.compute_tangent(self.nodes), (n, 1)
         ).T
 
         cf = self.cell_faces.indices
