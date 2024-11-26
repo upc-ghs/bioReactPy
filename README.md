@@ -22,13 +22,13 @@ Starnoni M., Dawi M. A., Sanchez-Vila X. (2024). BioReactPy: An open-source soft
 
 ## RELATED PUBLICATIONS
 
-Starnoni M., Dawi M. A., Sanchez-Vila X. (2024). BioReactPy: An open-source software for simulation of microbial-mediated reactive processes in porous media, Applied Computing and Geosciences, [doi: 10.1016/j.acags.2024.100166](https://doi.org/10.1016/j.acags.2024.100166)
+Starnoni, M., Dawi, M. A., & Sanchez-Vila, X. (2024). BioReactPy: An open-source software for simulation of microbial-mediated reactive processes in porous media. Applied Computing and Geosciences, 22, 100166. [doi: 10.1016/j.acags.2024.100166](https://doi.org/10.1016/j.acags.2024.100166)
 
-Starnoni M., Dawi M. A., Sanchez-Vila X. (2024). Pore-scale modelling of subsurface biomineralization for carbon mineral storage, Advances in Water Resources, [doi: 10.1016/j.advwatres.2024.104641](https://doi.org/10.1016/j.advwatres.2024.104641)
+Starnoni, M., & Sanchez-Vila, X. (2024). Pore-scale modelling of subsurface biomineralization for carbon mineral storage. Advances in Water Resources, 185, 104641. [doi: 10.1016/j.advwatres.2024.104641](https://doi.org/10.1016/j.advwatres.2024.104641)
 
-Starnoni, M., Sanchez‐Vila, X., Recalcati, C., Riva, M., & Guadagnini, A. (2024). Process modeling of mineral dissolution from nano‐Scale surface topography observations. Geophysical Research Letters, [doi: 10.1029/2024GL110030](https://doi.org/10.1029/2024GL110030)
+Starnoni, M., Sanchez‐Vila, X., Recalcati, C., Riva, M., & Guadagnini, A. (2024). Process modeling of mineral dissolution from nano‐Scale surface topography observations. Geophysical Research Letters, 51(16), e2024GL110030. [doi: 10.1029/2024GL110030](https://doi.org/10.1029/2024GL110030)
 
-Dawi, M. A., Starnoni, M., Porta, G., & Sanchez-Vila, X. (2024). Pore-scale coupling of flow, biofilm growth, and nutrient transport: A microcontinuum approach. Water Resources Research, [doi:10.1029/2024WR038393](https://doi.org/10.1029/2024WR038393)
+Dawi, M. A., Starnoni, M., Porta, G., & Sanchez-Vila, X. (2024). Pore-scale coupling of flow, biofilm growth, and nutrient transport: A microcontinuum approach. Water Resources Research, 60, e2024WR038393 [doi:10.1029/2024WR038393](https://doi.org/10.1029/2024WR038393)
 
 Runscripts for all simulations presented in these papers can be found in the associated Data Availability Statements.
 
